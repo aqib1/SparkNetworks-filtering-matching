@@ -1,0 +1,62 @@
+openapi: 3.0.0
+info:
+  description: Filter handler powered by Spark networks - client side
+  version: 1.0.0-oas3
+  title: Filter handler - client
+tags:
+- name: Filter Handler - client
+  description: Pojo definition for client filter handler
+paths:
+  /:
+    get:
+      tags:
+      - main api for home screen
+      responses:
+        '200':
+          description: successful operation
+components:
+  schemas:
+    FilterHandlerRequest:
+      properties:
+        hasPhoto:
+          type: boolean
+        inContact:
+          type: boolean
+        favorite:
+          type: boolean
+        compatibility:
+          type: object
+          $ref: '#/components/schemas/Compatibility'
+        age:
+          type: object
+          $ref: '#/components/schemas/Age'
+        height:
+          type: object
+          $ref: '#/components/schemas/Height'
+        distance:
+          type: object
+          $ref: '#/components/schemas/Distance'
+    Distance:
+      properties:
+        from:
+          type: integer
+        to:
+          type: integer
+    Height:
+      properties:
+        from:
+          type: integer
+        to:
+          type: integer
+    Age:
+      properties:
+        from:
+          type: integer
+        to:
+          type: integer
+    Compatibility:
+      properties:
+        from:
+          type: integer
+        to:
+          type: integer
