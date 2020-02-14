@@ -16,6 +16,48 @@ paths:
           description: successful operation
 components:
   schemas:
+    PersonDetailsModel:
+      properties:
+        display_name:
+          type: string
+        age:
+          type: integer
+        job_title:
+          type: string
+        height_in_cm:
+          type: integer
+          format: int64
+        city:
+          type: object
+          $ref: '#/components/schemas/City'
+        main_photo:
+          type: string
+        compatibility_score:
+          type: number
+          format: double
+        contacts_exchanged:
+          type: integer
+        favourite:
+          type: boolean
+        religion:
+          type: string
+    City:
+      properties:
+        name:
+          type: string
+        lat:
+          type: number
+          format: double
+        lon:
+          type: number
+          format: double
+    FilterHandlerResponse:
+      properties:
+        matches:
+          type: array
+          items:
+            type: object
+            $ref: '#/components/schemas/PersonDetailsModel'
     FilterHandlerRequest:
       properties:
         hasPhoto:
