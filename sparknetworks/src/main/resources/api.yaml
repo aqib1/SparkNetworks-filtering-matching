@@ -10,7 +10,10 @@ paths:
   /:
     get:
       tags:
-      - main api for home screen
+      - Main API
+      summary: >-
+        main api for home screen
+      operationId: main
       responses:
         '200':
           description: successful operation

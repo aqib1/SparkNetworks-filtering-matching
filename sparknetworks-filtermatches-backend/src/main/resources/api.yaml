@@ -7,13 +7,27 @@ tags:
 - name: Filter Handler - client
   description: Pojo definition for client filter handler
 paths:
-  /:
-    get:
+  /filter:
+    post:
       tags:
-      - main api for home screen
+        - Filter API
+      summary: >-
+        create a new api filter handler which filter data upon given request
+      operationId: filter
+      requestBody:
+        description: request body required for filter
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterHandlerRequest'
       responses:
         '200':
-          description: successful operation
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterHandlerResponse'
 components:
   schemas:
     PersonDetailsModel:
