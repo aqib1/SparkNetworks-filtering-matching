@@ -76,6 +76,33 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>3.3.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/src/main/resources/api.yaml</inputSpec>
+							<language>java</language>
+							<generateApis>false</generateApis>
+							<generateModels>true</generateModels>
+							<generateModelDocumentation>false</generateModelDocumentation>
+							<generateModelTests>false</generateModelTests>
+							<generateSupportingFiles>false</generateSupportingFiles>
+							<modelPackage>com.sparknetworks.model</modelPackage>
+							<configOptions>
+								<dateLibrary>java8</dateLibrary>
+								<sourceFolder>swagger</sourceFolder>
+							</configOptions>
+							<output>target/generated-sources</output>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>

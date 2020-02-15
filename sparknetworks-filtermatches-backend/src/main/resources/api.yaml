@@ -102,3 +102,15 @@ components:
           type: integer
         to:
           type: integer
+    ResponseError:
+      properties:
+        errorCode:
+          type: integer
+        errorMessage:
+          type: string       
+        detailedMessage:
+          type: string
+        exceptionName:
+          type: string
+        createdAt:
+          type: string
