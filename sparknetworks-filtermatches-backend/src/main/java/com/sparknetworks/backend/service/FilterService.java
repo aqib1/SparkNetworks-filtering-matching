@@ -6,4 +6,6 @@ import com.sparknetworks.model.PersonDetailsModel;
 
 public interface FilterService {
 	List<PersonDetailsModel> filterDetails(FilterHandlerRequest request);
+	
+	List<PersonDetailsModel> findAll();
 }
