@@ -5,15 +5,15 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import com.sparknetworks.model.City;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "PERSONDETAILS")
 public class PersonDetailsEntity {
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Integer id;
 
 	@Column(name = "display_name")
 	private String displayName;
@@ -25,14 +25,17 @@ public class PersonDetailsEntity {
 	private String jobTitle;
 
 	@Column(name = "height_in_cm")
-	private Long heightInCm;
+	private Integer heightInCm;
 
 	@Embedded
-	private City city;
+	private CityEntity city;
 
-	@Column(name = "main_photo")
+	@Column(name = "main_photo", nullable = true)
 	private String mainPhoto;
 
+	@Column(name = "compatibility_score")
+	private Double compatibilityScore;
+	
 	@Column(name = "contacts_exchanged")
 	private Integer contactsExchanged;
 
@@ -42,11 +45,11 @@ public class PersonDetailsEntity {
 	@Column(name = "religion")
 	private String religion;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -74,19 +77,19 @@ public class PersonDetailsEntity {
 		this.jobTitle = jobTitle;
 	}
 
-	public Long getHeightInCm() {
+	public Integer getHeightInCm() {
 		return heightInCm;
 	}
 
-	public void setHeightInCm(Long heightInCm) {
+	public void setHeightInCm(Integer heightInCm) {
 		this.heightInCm = heightInCm;
 	}
 
-	public City getCity() {
+	public CityEntity getCity() {
 		return city;
 	}
 
-	public void setCity(City city) {
+	public void setCity(CityEntity city) {
 		this.city = city;
 	}
 
@@ -96,6 +99,14 @@ public class PersonDetailsEntity {
 
 	public void setMainPhoto(String mainPhoto) {
 		this.mainPhoto = mainPhoto;
+	}
+	
+	public Double getCompatibilityScore() {
+		return compatibilityScore;
+	}
+
+	public void setCompatibilityScore(Double compatibilityScore) {
+		this.compatibilityScore = compatibilityScore;
 	}
 
 	public Integer getContactsExchanged() {

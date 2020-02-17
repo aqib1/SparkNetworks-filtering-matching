@@ -1,19 +1,36 @@
 package com.sparknetworks.backend.business;
 
+import java.util.List;
 import java.util.Objects;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.sparknetworks.backend.entities.PersonDetailsEntity;
 import com.sparknetworks.backend.exceptions.InvalidRequestException;
+import com.sparknetworks.backend.mapper.PersonDetailsModelMapper;
+import com.sparknetworks.backend.service.FilterService;
 import com.sparknetworks.model.FilterHandlerRequest;
 import com.sparknetworks.model.FilterHandlerResponse;
 
 @Component
 public class FilterBusiness {
 
+	@Autowired
+	private FilterService filterService;
+
+	@Autowired
+	private PersonDetailsModelMapper mapper;
+
 	public FilterHandlerResponse filter(FilterHandlerRequest request) {
 		validateFilterHandlerRequest(request);
 		return null;
+	}
+
+	public FilterHandlerResponse getAll() {
+		List<PersonDetailsEntity> data = filterService.findAll();
+		return new FilterHandlerResponse()
+				.matches(mapper.personDetailsEntityListToPersonDetailsModelList(data));
 	}
 
 	private void validateFilterHandlerRequest(FilterHandlerRequest request) {
