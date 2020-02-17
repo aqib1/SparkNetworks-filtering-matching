@@ -7,12 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sparknetworks.backend.entities.PersonDetailsEntity;
+import com.sparknetworks.backend.exceptions.DataNotFoundException;
 import com.sparknetworks.backend.exceptions.InvalidRequestException;
 import com.sparknetworks.backend.mapper.PersonDetailsModelMapper;
 import com.sparknetworks.backend.service.FilterService;
+import com.sparknetworks.backend.utils.Utils;
 import com.sparknetworks.model.FilterHandlerRequest;
 import com.sparknetworks.model.FilterHandlerResponse;
 
+/**
+ * @author AQIB JAVED
+ * @version 1.0
+ * @since 16/02/2020
+ *
+ */
 @Component
 public class FilterBusiness {
 
@@ -22,17 +30,29 @@ public class FilterBusiness {
 	@Autowired
 	private PersonDetailsModelMapper mapper;
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	public FilterHandlerResponse filter(FilterHandlerRequest request) {
 		validateFilterHandlerRequest(request);
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
 	public FilterHandlerResponse getAll() {
 		List<PersonDetailsEntity> data = filterService.findAll();
-		return new FilterHandlerResponse()
-				.matches(mapper.personDetailsEntityListToPersonDetailsModelList(data));
+		if (Utils.isEmpty(data)) {
+			throw new DataNotFoundException("Data not found in person details table");
+		}
+		return new FilterHandlerResponse().matches(mapper.personDetailsEntityListToPersonDetailsModelList(data));
 	}
 
+	/**
+	 * @param request
+	 */
 	private void validateFilterHandlerRequest(FilterHandlerRequest request) {
 		if (Objects.isNull(request))
 			throw new InvalidRequestException("Request can not be null");

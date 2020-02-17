@@ -31,6 +31,7 @@ public class FilterController {
 
 	@GetMapping
 	public FilterHandlerResponse getAll() {
+		logger.info("Request recieved for getting all person details");
 		return business.getAll();
 	}
 }

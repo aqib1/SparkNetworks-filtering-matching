@@ -11,9 +11,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import com.sparknetworks.backend.exceptions.DataNotFoundException;
 import com.sparknetworks.backend.exceptions.InvalidRequestException;
 import com.sparknetworks.model.ResponseError;
 
+/**
+ * @author AQIB JAVED
+ * @version 1.0
+ * @since 15/02/2020
+ *
+ */
 @RestControllerAdvice
 public class ControllerAdvice {
 	
@@ -33,5 +40,23 @@ public class ControllerAdvice {
 				.exceptionName(InvalidRequestException.class.getName()).errorMessage(e.getMessage());
 		logger.error(errorResponse.toString(), e);
 		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+	}
+
+	
+
+	/**
+	 * @param e
+	 * @param wr
+	 * @return
+	 */
+	@ExceptionHandler(value = { DataNotFoundException.class })
+	public ResponseEntity<ResponseError> handleDataNotFoundException(RuntimeException e, WebRequest wr) {
+		String error = Optional.of(e.getMessage()).orElse(e.getClass().getName())
+				+ " [Data not found exception! => (DataNotFoundException)]";
+		ResponseError errorResponse = new ResponseError().createdAt(LocalDateTime.now().toString())
+				.detailedMessage(error).errorCode(HttpStatus.EXPECTATION_FAILED.value())
+				.exceptionName(DataNotFoundException.class.getName()).errorMessage(e.getMessage());
+		logger.error(errorResponse.toString(), e);
+		return new ResponseEntity<>(errorResponse, HttpStatus.EXPECTATION_FAILED);
 	}
 }
