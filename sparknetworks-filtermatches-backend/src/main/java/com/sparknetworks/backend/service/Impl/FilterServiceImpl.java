@@ -3,13 +3,17 @@ package com.sparknetworks.backend.service.Impl;
 import java.util.List;
 import java.util.concurrent.locks.StampedLock;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sparknetworks.backend.entities.PersonDetailsEntity;
 import com.sparknetworks.backend.repositories.PersonDetailsRepository;
+import com.sparknetworks.backend.repositories.specifications.PersonDetailsSpecs;
 import com.sparknetworks.backend.service.FilterService;
 import com.sparknetworks.model.FilterHandlerRequest;
+import com.sparknetworks.model.LoginRequestModel;
 
 /**
  * ========= Thread safety information =======
@@ -44,14 +48,22 @@ import com.sparknetworks.model.FilterHandlerRequest;
 @Service
 public class FilterServiceImpl implements FilterService {
 
+	private static final Logger logger = LoggerFactory.getLogger(FilterServiceImpl.class);
 	private StampedLock stampedLock = new StampedLock();
 	@Autowired
 	private PersonDetailsRepository repository;
 
 	@Override
+	public PersonDetailsEntity login(LoginRequestModel request) {
+		logger.info("Request recieved for filter with LoginRequestModel [" + request + "]");
+		return repository.findByDisplayNameAndPassword(request.getName(), request.getPassword());
+	}
+	
+	@Override
 	public List<PersonDetailsEntity> filterDetails(FilterHandlerRequest request) {
-
-		return null;
+		request.getCompatibility().setTo(request.getCompatibility().getTo() / 100);
+		request.getCompatibility().setFrom(request.getCompatibility().getFrom() / 100);
+		return repository.findAll(PersonDetailsSpecs.getPersonDetailsByHasPhoto(request.getHasPhoto()));
 	}
 
 	@Override

@@ -18,6 +18,9 @@ public class PersonDetailsEntity {
 	@Column(name = "display_name")
 	private String displayName;
 
+	@Column(name = "password")
+	private String password;
+
 	@Column(name = "age")
 	private Integer age;
 
@@ -35,7 +38,7 @@ public class PersonDetailsEntity {
 
 	@Column(name = "compatibility_score")
 	private Double compatibilityScore;
-	
+
 	@Column(name = "contacts_exchanged")
 	private Integer contactsExchanged;
 
@@ -44,6 +47,14 @@ public class PersonDetailsEntity {
 
 	@Column(name = "religion")
 	private String religion;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public Integer getId() {
 		return id;
@@ -100,7 +111,7 @@ public class PersonDetailsEntity {
 	public void setMainPhoto(String mainPhoto) {
 		this.mainPhoto = mainPhoto;
 	}
-	
+
 	public Double getCompatibilityScore() {
 		return compatibilityScore;
 	}

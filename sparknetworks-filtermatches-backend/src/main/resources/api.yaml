@@ -7,6 +7,27 @@ tags:
 - name: Filter Handler - client
   description: Pojo definition for client filter handler
 paths:
+  /login:
+    post:
+      tags:
+        - Login API
+      summary: >- 
+        create a new api for login
+      operationId: login
+      requestBody:
+        description: request body required for login
+        required: true  
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/LoginRequestModel'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonDetailsModel'           
   /filter:
     post:
       tags:
@@ -30,10 +51,19 @@ paths:
                 $ref: '#/components/schemas/FilterHandlerResponse'
 components:
   schemas:
+    LoginRequestModel:
+      properties:
+        name:
+          type: string
+        password:
+          type: string  
+    
     PersonDetailsModel:
       properties:
         display_name:
           type: string
+        password:
+          type: string  
         age:
           type: integer
         job_title:
@@ -95,9 +125,11 @@ components:
     Distance:
       properties:
         from:
-          type: integer
+          type: number
+          format: double
         to:
-          type: integer
+          type: number
+          format: double
     Height:
       properties:
         from:
@@ -113,9 +145,11 @@ components:
     Compatibility:
       properties:
         from:
-          type: integer
+          type: number
+          format: double
         to:
-          type: integer
+          type: number
+          format: double
     ResponseError:
       properties:
         errorCode:

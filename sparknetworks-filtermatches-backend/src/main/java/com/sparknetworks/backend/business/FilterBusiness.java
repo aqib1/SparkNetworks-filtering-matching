@@ -3,6 +3,8 @@ package com.sparknetworks.backend.business;
 import java.util.List;
 import java.util.Objects;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,8 @@ import com.sparknetworks.backend.service.FilterService;
 import com.sparknetworks.backend.utils.Utils;
 import com.sparknetworks.model.FilterHandlerRequest;
 import com.sparknetworks.model.FilterHandlerResponse;
+import com.sparknetworks.model.LoginRequestModel;
+import com.sparknetworks.model.PersonDetailsModel;
 
 /**
  * @author AQIB JAVED
@@ -24,11 +28,31 @@ import com.sparknetworks.model.FilterHandlerResponse;
 @Component
 public class FilterBusiness {
 
+	private static final Logger logger = LoggerFactory.getLogger(FilterBusiness.class);
 	@Autowired
 	private FilterService filterService;
 
 	@Autowired
 	private PersonDetailsModelMapper mapper;
+
+	public PersonDetailsModel login(LoginRequestModel request) {
+		logger.info("Request recieved for filter with LoginRequestModel [" + request + "]");
+		validateLoginRequetModel(request);
+		PersonDetailsEntity entity = filterService.login(request);
+		if (Objects.isNull(entity))
+			return null;
+		return mapper.personDetailsEntityToPersonDetailsModel(entity);
+	}
+
+	private void validateLoginRequetModel(LoginRequestModel request) {
+		if (Objects.isNull(request))
+			throw new InvalidRequestException("Request can not be null");
+		if (Objects.isNull(request.getName()))
+			throw new InvalidRequestException("Request [name] can not be null");
+		if (Objects.isNull(request.getPassword()))
+			throw new InvalidRequestException("Request [password] can not be null");
+
+	}
 
 	/**
 	 * @param request
@@ -36,7 +60,11 @@ public class FilterBusiness {
 	 */
 	public FilterHandlerResponse filter(FilterHandlerRequest request) {
 		validateFilterHandlerRequest(request);
-		return null;
+		List<PersonDetailsEntity> data = filterService.filterDetails(request);
+		if (Utils.isEmpty(data)) {
+			throw new DataNotFoundException("Data not found in person details table");
+		}
+		return new FilterHandlerResponse().matches(mapper.personDetailsEntityListToPersonDetailsModelList(data));
 	}
 
 	/**

@@ -10,19 +10,37 @@ paths:
   /:
     get:
       tags:
-      - Main API
+      - Login API
       summary: >-
-        main api for home screen
-      operationId: main
+        Api for login screen
+      operationId: login
       responses:
         '200':
-          description: successful operation
+          description: successfull operation       
+  /home:
+    get:
+      tags:
+      - Home API
+      summary: >-
+        home api for person details screens
+      operationId: home
+      responses:
+        '200':
+          description: successfull operation
 components:
   schemas:
+    LoginRequestModel:
+      properties:
+        name:
+          type: string
+        password:
+          type: string    
     PersonDetailsModel:
       properties:
         display_name:
           type: string
+        password:
+          type: string   
         age:
           type: integer
         job_title:
@@ -84,9 +102,11 @@ components:
     Distance:
       properties:
         from:
-          type: integer
+          type: number
+          format: double
         to:
-          type: integer
+          type: number
+          format: double
     Height:
       properties:
         from:
@@ -102,9 +122,11 @@ components:
     Compatibility:
       properties:
         from:
-          type: integer
+          type: number
+          format: double
         to:
-          type: integer
+          type: number
+          format: double
     ResponseError:
       properties:
         errorCode:
@@ -116,4 +138,4 @@ components:
         exceptionName:
           type: string
         createdAt:
-          type: string          
+          type: string
