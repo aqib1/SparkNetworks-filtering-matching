@@ -1,11 +1,14 @@
 package com.sparknetworks.filterhandler.controller;
 
 import static com.sparknetworks.filterhandler.utils.Const.HOME_PAGE_URL;
+import static com.sparknetworks.filterhandler.utils.Const.LOGIN_MODEL_ATTRIBUTE;
 import static com.sparknetworks.filterhandler.utils.Const.LOGIN_OP_URL;
 import static com.sparknetworks.filterhandler.utils.Const.LOGIN_PAGE;
 import static com.sparknetworks.filterhandler.utils.Const.LOGIN_PAGE_URL;
 import static com.sparknetworks.filterhandler.utils.Const.MAIN_PAGE;
 import static com.sparknetworks.filterhandler.utils.Const.PERSON_DETAILS_LIST_KEY;
+import static com.sparknetworks.filterhandler.utils.Const.REDIRECT_HOME;
+import static com.sparknetworks.filterhandler.utils.Const.REDIRECT_LOGIN;
 
 import java.util.Objects;
 
@@ -26,29 +29,27 @@ public class FilterController {
 
 	@Autowired
 	private FilterBusiness business;
-	
+
 	@GetMapping(LOGIN_PAGE_URL)
 	public String login(Model model) {
-		model.addAttribute("loginModel" ,new LoginRequestModel());
+		model.addAttribute(LOGIN_MODEL_ATTRIBUTE, new LoginRequestModel());
 		return LOGIN_PAGE;
 	}
-	
+
 	@PostMapping(LOGIN_OP_URL)
-	public ModelAndView loginOperation(@ModelAttribute("loginModel") LoginRequestModel request) {
+	public String loginOperation(@ModelAttribute(LOGIN_MODEL_ATTRIBUTE) LoginRequestModel request) {
 		PersonDetailsModel user = business.login(request);
-		ModelAndView modelAndView = new ModelAndView(LOGIN_PAGE);
-		if(Objects.isNull(user)) {
-			
+		if (Objects.isNull(user)) {
+			return REDIRECT_LOGIN;
 		}
-		return null;
+		return REDIRECT_HOME;
 	}
-	
+
 	@GetMapping(HOME_PAGE_URL)
 	public ModelAndView home() {
 		ModelAndView modelAndView = new ModelAndView(MAIN_PAGE);
 		modelAndView.addObject(PERSON_DETAILS_LIST_KEY, business.getAll());
 		return modelAndView;
 	}
-	
 
 }

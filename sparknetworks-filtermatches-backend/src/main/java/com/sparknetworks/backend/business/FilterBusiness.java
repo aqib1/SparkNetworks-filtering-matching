@@ -61,9 +61,6 @@ public class FilterBusiness {
 	public FilterHandlerResponse filter(FilterHandlerRequest request) {
 		validateFilterHandlerRequest(request);
 		List<PersonDetailsEntity> data = filterService.filterDetails(request);
-		if (Utils.isEmpty(data)) {
-			throw new DataNotFoundException("Data not found in person details table");
-		}
 		return new FilterHandlerResponse().matches(mapper.personDetailsEntityListToPersonDetailsModelList(data));
 	}
 

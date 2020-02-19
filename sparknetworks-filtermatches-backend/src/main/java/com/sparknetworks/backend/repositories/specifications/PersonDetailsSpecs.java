@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.Specification;
 import com.sparknetworks.backend.entities.PersonDetailsEntity;
 import com.sparknetworks.model.Age;
 import com.sparknetworks.model.Compatibility;
+import com.sparknetworks.model.FilterHandlerRequest;
 import com.sparknetworks.model.Height;
 
 public class PersonDetailsSpecs {
@@ -47,7 +48,16 @@ public class PersonDetailsSpecs {
 		return (root, query, criteriaBuilder) -> criteriaBuilder.between(root.get(PERSON_DETAILS_COL_HEIGHT),
 				height.getFrom(), height.getTo());
 	}
-
+	
+	public static Specification<PersonDetailsEntity> getPersonDetailsByFilter(FilterHandlerRequest request) {
+		return Specification.where(getPersonDetailsByHasPhoto(request.getHasPhoto()))
+				.and(getPersonDetailsByInContact(request.getInContact()))
+				.and(getPersonDetailsByFavorite(request.getFavorite()))
+				.and(getPersonDetailsByCompatibility(request.getCompatibility()))
+				.and(getPersonDetailsByAge(request.getAge()))
+				.and(getPersonDetailsByHeight(request.getHeight()));
+	}
+	
 	private PersonDetailsSpecs() {
 
 	}

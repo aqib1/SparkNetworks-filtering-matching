@@ -28,7 +28,7 @@ public class FilterController {
 	private FilterBusiness business;
 
 	@PostMapping(LOGIN_URL)
-	public PersonDetailsModel login(LoginRequestModel request) {
+	public PersonDetailsModel login(@RequestBody LoginRequestModel request) {
 		logger.info("Request recieved for filter with LoginRequestModel [" + request + "]");
 		return business.login(request);
 	}

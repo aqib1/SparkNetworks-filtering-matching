@@ -11,8 +11,8 @@ public class Const {
 	public static final String PERSON_DETAILS_COL_AGE = "age";
 	public static final String PERSON_DETAILS_COL_MAINPHOTO = "mainPhoto";
 	public static final String PERSON_DETAILS_COL_CONTACTS = "contactsExchanged";
-	public static final String PERSON_DETAILS_COL_FAVORITE = "favorite";
-	public static final String PERSON_DETAILS_COL_COMPATIBILITY = "compatibility";
+	public static final String PERSON_DETAILS_COL_FAVORITE = "favourite";
+	public static final String PERSON_DETAILS_COL_COMPATIBILITY = "compatibilityScore";
 	public static final String PERSON_DETAILS_COL_HEIGHT = "heightInCm";
 	
 	

@@ -63,7 +63,7 @@ public class FilterServiceImpl implements FilterService {
 	public List<PersonDetailsEntity> filterDetails(FilterHandlerRequest request) {
 		request.getCompatibility().setTo(request.getCompatibility().getTo() / 100);
 		request.getCompatibility().setFrom(request.getCompatibility().getFrom() / 100);
-		return repository.findAll(PersonDetailsSpecs.getPersonDetailsByHasPhoto(request.getHasPhoto()));
+		return repository.findAll(PersonDetailsSpecs.getPersonDetailsByFilter(request));
 	}
 
 	@Override
