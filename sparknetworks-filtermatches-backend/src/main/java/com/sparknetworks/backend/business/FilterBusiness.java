@@ -103,6 +103,7 @@ public class FilterBusiness {
 			throw new InvalidRequestException("Request distance can not be null");
 		if (Objects.isNull(request.getDistance().getFrom()) || Objects.isNull(request.getDistance().getTo()))
 			throw new InvalidRequestException("Request distance (to | from) can not be null");
-
+		if (Objects.isNull(request.getUser()))
+			throw new InvalidRequestException("Request user (session) can not be null");
 	}
 }

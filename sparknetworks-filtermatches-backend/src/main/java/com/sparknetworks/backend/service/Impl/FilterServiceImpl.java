@@ -2,6 +2,7 @@ package com.sparknetworks.backend.service.Impl;
 
 import java.util.List;
 import java.util.concurrent.locks.StampedLock;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import com.sparknetworks.backend.entities.PersonDetailsEntity;
 import com.sparknetworks.backend.repositories.PersonDetailsRepository;
 import com.sparknetworks.backend.repositories.specifications.PersonDetailsSpecs;
 import com.sparknetworks.backend.service.FilterService;
+import com.sparknetworks.backend.utils.Utils;
 import com.sparknetworks.model.FilterHandlerRequest;
 import com.sparknetworks.model.LoginRequestModel;
 
@@ -95,7 +97,13 @@ public class FilterServiceImpl implements FilterService {
 	}
 
 	private List<PersonDetailsEntity> getFilterDetails(FilterHandlerRequest request) {
-		return repository.findAll(PersonDetailsSpecs.getPersonDetailsByFilter(request));
+		List<PersonDetailsEntity> data = repository.findAll(PersonDetailsSpecs.getPersonDetailsByFilter(request))
+				.stream().filter(d -> {
+					double distanceKm = Utils.distance(request.getUser().getCity().getLat(), d.getCity().getLat(),
+							request.getUser().getCity().getLon(), d.getCity().getLon());
+					return request.getDistance().getFrom() <= distanceKm && distanceKm <= request.getDistance().getTo();
+				}).collect(Collectors.toList());
+		return data;
 	}
 
 	@Override
