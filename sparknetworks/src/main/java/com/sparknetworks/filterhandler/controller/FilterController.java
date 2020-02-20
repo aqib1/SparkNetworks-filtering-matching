@@ -56,6 +56,7 @@ public class FilterController {
 	@GetMapping(HOME_PAGE_URL)
 	public ModelAndView home() {
 		ModelAndView modelAndView = new ModelAndView(MAIN_PAGE);
+		modelAndView.addObject(FILTER_HANDLER_REQUEST_ATTRIBUTE, new FilterHandlerRequest());
 		modelAndView.addObject(PERSON_DETAILS_LIST_KEY, business.getAll());
 		return modelAndView;
 	}
@@ -64,6 +65,7 @@ public class FilterController {
 	public ModelAndView filter(@ModelAttribute(FILTER_HANDLER_REQUEST_ATTRIBUTE) FilterHandlerRequest request, HttpServletRequest httpRequest) {
 		ModelAndView modelAndView = new ModelAndView(MAIN_PAGE);
 		request.setUser((PersonDetailsModel)httpRequest.getSession().getAttribute(USER_SESSION));
+		modelAndView.addObject(PERSON_DETAILS_LIST_KEY, business.getAllByFilter(request));
 		return modelAndView;
 	}
 
