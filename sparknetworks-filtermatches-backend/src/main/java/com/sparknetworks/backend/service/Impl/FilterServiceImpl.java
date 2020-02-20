@@ -56,13 +56,45 @@ public class FilterServiceImpl implements FilterService {
 	@Override
 	public PersonDetailsEntity login(LoginRequestModel request) {
 		logger.info("Request recieved for filter with LoginRequestModel [" + request + "]");
+		// return zero if it acquire by a write lock (exclusive locked)
+		long stamp = stampedLock.tryOptimisticRead();
+		// Synchronization overhead is very low if validate() succeeds
+		// Always return true if stamp is non zero (as not acquired by write lock)
+		if (stampedLock.validate(stamp))
+			return getPersonDetailsByNameAndPassword(request);
+		// Only in the case when write lock is acquired we need to apply read lock
+		stamp = stampedLock.readLock();
+		try {
+			return getPersonDetailsByNameAndPassword(request);
+		} finally {
+			stampedLock.unlockRead(stamp);
+		}
+	}
+
+	private PersonDetailsEntity getPersonDetailsByNameAndPassword(LoginRequestModel request) {
 		return repository.findByDisplayNameAndPassword(request.getName(), request.getPassword());
 	}
-	
+
 	@Override
 	public List<PersonDetailsEntity> filterDetails(FilterHandlerRequest request) {
 		request.getCompatibility().setTo(request.getCompatibility().getTo() / 100);
 		request.getCompatibility().setFrom(request.getCompatibility().getFrom() / 100);
+		// return zero if it acquire by a write lock (exclusive locked)
+		long stamp = stampedLock.tryOptimisticRead();
+		// Synchronization overhead is very low if validate() succeeds
+		// Always return true if stamp is non zero (as not acquired by write lock)
+		if (stampedLock.validate(stamp))
+			return getFilterDetails(request);
+		// Only in the case when write lock is acquired we need to apply read lock
+		stamp = stampedLock.readLock();
+		try {
+			return getFilterDetails(request);
+		} finally {
+			stampedLock.unlockRead(stamp);
+		}
+	}
+
+	private List<PersonDetailsEntity> getFilterDetails(FilterHandlerRequest request) {
 		return repository.findAll(PersonDetailsSpecs.getPersonDetailsByFilter(request));
 	}
 

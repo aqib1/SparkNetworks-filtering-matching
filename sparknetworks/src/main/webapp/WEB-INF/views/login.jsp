@@ -1,9 +1,6 @@
 <%@ include file="head.jsp" %>
 <body>
 <div class="container">
-<%-- <c:if test="${not empty error}">
-	  <%@ include file="error.jsp" %> 
-</c:if> --%>
 <%@ include file="header.jsp"%>
 	<form:form action="/login" method="post" modelAttribute="loginModel">
 		<table class="table">

@@ -122,6 +122,9 @@ components:
         distance:
           type: object
           $ref: '#/components/schemas/Distance'
+        user:
+          type: object  
+          $ref: '#/components/schemas/PersonDetailsModel'  
     Distance:
       properties:
         from:
