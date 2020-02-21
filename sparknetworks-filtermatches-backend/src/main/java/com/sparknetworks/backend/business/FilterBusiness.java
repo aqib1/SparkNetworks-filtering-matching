@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.sparknetworks.backend.entities.PersonDetailsEntity;
 import com.sparknetworks.backend.exceptions.DataNotFoundException;
+import com.sparknetworks.backend.exceptions.InvalidLoginCredException;
 import com.sparknetworks.backend.exceptions.InvalidRequestException;
 import com.sparknetworks.backend.mapper.PersonDetailsModelMapper;
 import com.sparknetworks.backend.service.FilterService;
@@ -35,15 +36,22 @@ public class FilterBusiness {
 	@Autowired
 	private PersonDetailsModelMapper mapper;
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	public PersonDetailsModel login(LoginRequestModel request) {
 		logger.info("Request recieved for filter with LoginRequestModel [" + request + "]");
 		validateLoginRequetModel(request);
 		PersonDetailsEntity entity = filterService.login(request);
 		if (Objects.isNull(entity))
-			return null;
+			throw new InvalidLoginCredException("Login credential not valid!!");
 		return mapper.personDetailsEntityToPersonDetailsModel(entity);
 	}
 
+	/**
+	 * @param request
+	 */
 	private void validateLoginRequetModel(LoginRequestModel request) {
 		if (Objects.isNull(request))
 			throw new InvalidRequestException("Request can not be null");
@@ -61,6 +69,9 @@ public class FilterBusiness {
 	public FilterHandlerResponse filter(FilterHandlerRequest request) {
 		validateFilterHandlerRequest(request);
 		List<PersonDetailsEntity> data = filterService.filterDetails(request);
+		if (Utils.isEmpty(data)) {
+			throw new DataNotFoundException("Data not found in person details table");
+		}
 		return new FilterHandlerResponse().matches(mapper.personDetailsEntityListToPersonDetailsModelList(data));
 	}
 

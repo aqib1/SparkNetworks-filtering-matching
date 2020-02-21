@@ -1,5 +1,10 @@
 package com.sparknetworks.backend.utils;
 
+/**
+ * @author AQIB JAVED
+ * @since 18/02/2020
+ * @version 1.0
+ */
 public class Const {
 
 	public static final String FILTER_URL = "/filter";

@@ -1,5 +1,11 @@
 package com.sparknetworks.backend.exceptions;
 
+/**
+ * @author AQIB JAVED
+ * @version 1.0
+ * @since 21/02/2020
+ *
+ */
 public class DataNotFoundException extends RuntimeException {
 
 	/**

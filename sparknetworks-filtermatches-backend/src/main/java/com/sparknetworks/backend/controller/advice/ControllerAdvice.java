@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import com.sparknetworks.backend.exceptions.DataNotFoundException;
+import com.sparknetworks.backend.exceptions.InvalidLoginCredException;
 import com.sparknetworks.backend.exceptions.InvalidRequestException;
 import com.sparknetworks.model.ResponseError;
 
@@ -58,5 +59,21 @@ public class ControllerAdvice {
 				.exceptionName(DataNotFoundException.class.getName()).errorMessage(e.getMessage());
 		logger.error(errorResponse.toString(), e);
 		return new ResponseEntity<>(errorResponse, HttpStatus.EXPECTATION_FAILED);
+	}
+	
+	/**
+	 * @param e
+	 * @param wr
+	 * @return
+	 */
+	@ExceptionHandler(value = { InvalidLoginCredException.class })
+	public ResponseEntity<ResponseError> handleInvalidLoginCredException(RuntimeException e, WebRequest wr) {
+		String error = Optional.of(e.getMessage()).orElse(e.getClass().getName())
+				+ " [Login not valid! => (InvalidLoginCredException)]";
+		ResponseError errorResponse = new ResponseError().createdAt(LocalDateTime.now().toString())
+				.detailedMessage(error).errorCode(HttpStatus.EXPECTATION_FAILED.value())
+				.exceptionName(InvalidLoginCredException.class.getName()).errorMessage(e.getMessage());
+		logger.error(errorResponse.toString(), e);
+		return new ResponseEntity<>(errorResponse, HttpStatus.NON_AUTHORITATIVE_INFORMATION);
 	}
 }
