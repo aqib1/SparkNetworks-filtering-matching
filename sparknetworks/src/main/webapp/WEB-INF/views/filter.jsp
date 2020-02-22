@@ -3,22 +3,22 @@
 			<tr>
 				<td><label>Compatibility</label></td>
 				<td><form:input path="compatibility.from" class="form-control" placeholder="from" type="number" /></td>
-				<td><form:input path="compatibility.to" class="form-control" placeholder="to" /></td>
+				<td><form:input path="compatibility.to" class="form-control" placeholder="to" type="number" /></td>
 			</tr>
 			<tr>
 				<td><label>Age</label></td>
-				<td><form:input path="age.from" class="form-control" placeholder="from" /></td>
-				<td><form:input path="age.to" class="form-control" placeholder="to" /></td>
+				<td><form:input path="age.from" class="form-control" placeholder="from" type="number" /></td>
+				<td><form:input path="age.to" class="form-control" placeholder="to" type="number" /></td>
 			</tr>
 			<tr>
 				<td><label>Height</label></td>
-				<td><form:input path="height.from" class="form-control" placeholder="from" /></td>
-				<td><form:input path="height.to" class="form-control" placeholder="to" /></td>
+				<td><form:input path="height.from" class="form-control" placeholder="from" type="number" /></td>
+				<td><form:input path="height.to" class="form-control" placeholder="to" type="number" /></td>
 			</tr>
 			<tr>
 				<td><label>Distance</label></td>
-				<td><form:input path="distance.from" class="form-control" placeholder="from"/></td>
-				<td><form:input path="distance.to" class="form-control" placeholder="to" /></td>
+				<td><form:input path="distance.from" class="form-control" placeholder="from" type="number" /></td>
+				<td><form:input path="distance.to" class="form-control" placeholder="to" type="number" /></td>
 			</tr>
 
 			<tr>

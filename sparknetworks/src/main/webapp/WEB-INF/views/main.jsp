@@ -4,6 +4,7 @@
 
 <div class="container">
 	<%@ include file="header.jsp"%>
+	<%@ include file="generic_error.jsp"%>
 	<%@ include file="filter.jsp"%>
 	<%@ include file="data.jsp"%>
 	<%@ include file="footer.jsp"%>

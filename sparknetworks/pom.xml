@@ -18,6 +18,7 @@
 		<swagger-annotations-version>1.5.22</swagger-annotations-version>
 		<openapi.tool.version>3.3.4</openapi.tool.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+		<json.version>20190722</json.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -90,6 +91,12 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${json.version}</version>
 		</dependency>
 
 		<!-- Tomcat for JSP rendering -->

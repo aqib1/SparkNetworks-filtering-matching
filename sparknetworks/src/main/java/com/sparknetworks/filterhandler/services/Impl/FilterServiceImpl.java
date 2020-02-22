@@ -1,14 +1,12 @@
 package com.sparknetworks.filterhandler.services.Impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sparknetworks.filterhandler.exceptions.DataNotFoundException;
 import com.sparknetworks.filterhandler.feignclient.FilterMatchingAPI;
 import com.sparknetworks.filterhandler.services.FilterService;
 import com.sparknetworks.model.FilterHandlerRequest;
+import com.sparknetworks.model.FilterHandlerResponse;
 import com.sparknetworks.model.LoginRequestModel;
 import com.sparknetworks.model.PersonDetailsModel;
 
@@ -19,12 +17,8 @@ public class FilterServiceImpl implements FilterService {
 	private FilterMatchingAPI api;
 
 	@Override
-	public List<PersonDetailsModel> getAll() {
-		try {
-			return api.getAll().getMatches();
-		} catch (NullPointerException e) {
-			throw new DataNotFoundException("Data not recieved from service", e);
-		}
+	public FilterHandlerResponse getAll() {
+			return api.getAll();
 	}
 
 	@Override
@@ -33,8 +27,8 @@ public class FilterServiceImpl implements FilterService {
 	}
 
 	@Override
-	public List<PersonDetailsModel> getAllByFilter(FilterHandlerRequest request) {
-		return api.filter(request).getMatches();
+	public FilterHandlerResponse getAllByFilter(FilterHandlerRequest request) {
+		return api.filter(request);
 	}
 
 }

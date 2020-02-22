@@ -6,7 +6,6 @@ package com.sparknetworks.backend.utils;
  * @version 1.0
  */
 public class Const {
-
 	public static final String FILTER_URL = "/filter";
 	public static final String LOGIN_URL = "/login";
 	public static final String SPARK_COMPONENT_SCAN_PATH = "com.sparknetworks.backend";

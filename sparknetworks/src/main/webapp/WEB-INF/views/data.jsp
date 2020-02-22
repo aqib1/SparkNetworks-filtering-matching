@@ -1,4 +1,5 @@
-<c:if test="${not empty personDetails}">
+<c:if test="${empty ERROR_ATTR_UNAUTH}">
+	<c:if test="${not empty personDetails}">
 		<table class="table">
 			<thead>
 				<tr>
@@ -38,3 +39,4 @@
 			</tbody>
 		</table>
 	</c:if>
+</c:if>

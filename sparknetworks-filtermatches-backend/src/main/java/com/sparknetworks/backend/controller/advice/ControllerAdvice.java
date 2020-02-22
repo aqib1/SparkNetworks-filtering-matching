@@ -14,6 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.sparknetworks.backend.exceptions.DataNotFoundException;
 import com.sparknetworks.backend.exceptions.InvalidLoginCredException;
 import com.sparknetworks.backend.exceptions.InvalidRequestException;
+import com.sparknetworks.backend.exceptions.ServiceNotAvailableException;
 import com.sparknetworks.model.ResponseError;
 
 /**
@@ -74,6 +75,22 @@ public class ControllerAdvice {
 				.detailedMessage(error).errorCode(HttpStatus.EXPECTATION_FAILED.value())
 				.exceptionName(InvalidLoginCredException.class.getName()).errorMessage(e.getMessage());
 		logger.error(errorResponse.toString(), e);
-		return new ResponseEntity<>(errorResponse, HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+		return new ResponseEntity<>(errorResponse, HttpStatus.EXPECTATION_FAILED);
+	}
+	
+	/**
+	 * @param e
+	 * @param wr
+	 * @return
+	 */
+	@ExceptionHandler(value = { ServiceNotAvailableException.class })
+	public ResponseEntity<ResponseError> handleServiceNotAvailableException(RuntimeException e, WebRequest wr) {
+		String error = Optional.of(e.getMessage()).orElse(e.getClass().getName())
+				+ " [Service not available! => (ServiceNotAvailableException)]";
+		ResponseError errorResponse = new ResponseError().createdAt(LocalDateTime.now().toString())
+				.detailedMessage(error).errorCode(HttpStatus.GONE.value())
+				.exceptionName(ServiceNotAvailableException.class.getName()).errorMessage(e.getMessage());
+		logger.error(errorResponse.toString(), e);
+		return new ResponseEntity<>(errorResponse, HttpStatus.GONE);
 	}
 }

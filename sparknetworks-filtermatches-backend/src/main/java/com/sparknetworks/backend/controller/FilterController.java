@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.sparknetworks.backend.business.FilterBusiness;
+import com.sparknetworks.backend.exceptions.ServiceNotAvailableException;
 import com.sparknetworks.model.FilterHandlerRequest;
 import com.sparknetworks.model.FilterHandlerResponse;
 import com.sparknetworks.model.LoginRequestModel;
@@ -40,10 +41,10 @@ public class FilterController {
 	 * @return
 	 */
 	@PostMapping(LOGIN_URL)
-	@HystrixCommand(fallbackMethod = "loginCircuitBreaker")
+//	@HystrixCommand(fallbackMethod = "loginCircuitBreaker")
 	public ResponseEntity<PersonDetailsModel> login(@RequestBody LoginRequestModel request) {
 		logger.info("Request recieved for filter with LoginRequestModel [" + request + "]");
-		return ResponseEntity.ok().body(business.login(request));
+		return new ResponseEntity<>(business.login(request), HttpStatus.OK);
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class FilterController {
 	@HystrixCommand(fallbackMethod = "filterCircuitBreaker")
 	public ResponseEntity<FilterHandlerResponse> filter(@RequestBody FilterHandlerRequest request) {
 		logger.info("Request recieved for filter with filterHandlerRequest [" + request + "]");
-		return ResponseEntity.ok().body(business.filter(request));
+		return new ResponseEntity<>(business.filter(request), HttpStatus.OK);
 	}
 
 	/**
@@ -64,18 +65,21 @@ public class FilterController {
 	@HystrixCommand(fallbackMethod = "getAllCircuitBreaker")
 	public ResponseEntity<FilterHandlerResponse> getAll() {
 		logger.info("Request recieved for getting all person details");
-		return ResponseEntity.ok().body(business.getAll());
+		return new ResponseEntity<>(business.getAll(), HttpStatus.OK);
 	}
 
 	public ResponseEntity<PersonDetailsModel> loginCircuitBreaker(@RequestBody LoginRequestModel request) {
-		return new ResponseEntity<>(null, HttpStatus.GONE);
+		throw new ServiceNotAvailableException("Service not available now, against request "
+				+ request.getClass().getName() + " => { " + request + " }");
 	}
 
 	public ResponseEntity<FilterHandlerResponse> filterCircuitBreaker(@RequestBody FilterHandlerRequest request) {
-		return new ResponseEntity<>(null, HttpStatus.GONE);
+		throw new ServiceNotAvailableException(
+				"Service not available now, against request " + request.getClass().getName()
+						+ " => { Please check if filter form filled completely or contact service provider }");
 	}
 
 	public ResponseEntity<FilterHandlerResponse> getAllCircuitBreaker() {
-		return new ResponseEntity<>(null, HttpStatus.GONE);
+		throw new ServiceNotAvailableException("Service not available now.");
 	}
 }

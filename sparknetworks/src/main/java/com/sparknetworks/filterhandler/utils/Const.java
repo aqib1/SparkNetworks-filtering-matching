@@ -1,7 +1,11 @@
 package com.sparknetworks.filterhandler.utils;
 
 public class Const {
-
+	
+	public static final String ERROR_ATTR_UNAUTH = "ERROR_ATTR_UNAUTH";
+	public static final String SUCCESS = "SUCCESS";
+	public static final String ERROR = "ERROR";
+	public static final String REDIRECT = "REDIRECT";
 	public static final String USER_SESSION = "USER_SESSION";
 	public static final String ERROR_LOGIN_FAILED = "Login failed, User/Password not found";
 	public static final String ERROR_ATTRIBUTE = "error";
