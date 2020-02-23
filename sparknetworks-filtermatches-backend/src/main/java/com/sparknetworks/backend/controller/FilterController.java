@@ -41,7 +41,7 @@ public class FilterController {
 	 * @return
 	 */
 	@PostMapping(LOGIN_URL)
-//	@HystrixCommand(fallbackMethod = "loginCircuitBreaker")
+	@HystrixCommand(fallbackMethod = "loginCircuitBreaker")
 	public ResponseEntity<PersonDetailsModel> login(@RequestBody LoginRequestModel request) {
 		logger.info("Request recieved for filter with LoginRequestModel [" + request + "]");
 		return new ResponseEntity<>(business.login(request), HttpStatus.OK);

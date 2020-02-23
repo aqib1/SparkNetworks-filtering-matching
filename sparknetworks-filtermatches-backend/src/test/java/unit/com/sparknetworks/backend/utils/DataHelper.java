@@ -3,6 +3,9 @@ package unit.com.sparknetworks.backend.utils;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import com.sparknetworks.backend.entities.CityEntity;
 import com.sparknetworks.backend.entities.PersonDetailsEntity;
 import com.sparknetworks.model.Age;
@@ -17,6 +20,14 @@ import com.sparknetworks.model.PersonDetailsModel;
 
 public class DataHelper {
 
+	public static ResponseEntity<PersonDetailsModel> getLoginFilterController() {
+		return new ResponseEntity<>(getPersonDetailsModel(), HttpStatus.OK);
+	}
+	
+	public static ResponseEntity<FilterHandlerResponse> getAllFilterController(){
+		return new ResponseEntity<FilterHandlerResponse>(getFilterHandlerResponse(), HttpStatus.OK);
+	}
+
 	public static PersonDetailsModel getPersonDetailsModel() {
 		return new PersonDetailsModel().displayName("caloria").password("ca123").age(22).jobTitle("SE").heightInCm(121l)
 				.city(new City().name("LHR").lat(3.1223).lon(12.111)).mainPhoto("img.png").compatibilityScore(2.1)
@@ -30,11 +41,11 @@ public class DataHelper {
 	public static FilterHandlerResponse getFilterHandlerResponse() {
 		return new FilterHandlerResponse().matches(Arrays.asList(getPersonDetailsModel()));
 	}
-	
-	public static List<PersonDetailsEntity> getPersonDetailsEntityList(){
+
+	public static List<PersonDetailsEntity> getPersonDetailsEntityList() {
 		return Arrays.asList(getPersonDetailsEntity());
 	}
-	
+
 	public static PersonDetailsEntity getPersonDetailsEntity() {
 		PersonDetailsEntity personDetails = new PersonDetailsEntity();
 		personDetails.setId(1);
