@@ -52,8 +52,8 @@ public class FilterServiceImplTest {
 		Assert.assertEquals("SE", data.get(0).getJobTitle());
 		Assert.assertTrue(12 == data.get(0).getAge());
 		Assert.assertTrue(155 == data.get(0).getHeightInCm());
-		Assert.assertTrue(2.3 == data.get(0).getCity().getLat());
-		Assert.assertTrue(33.1 == data.get(0).getCity().getLon());
+		Assert.assertTrue(51.509865 == data.get(0).getCity().getLat());
+		Assert.assertTrue(-1.548567 == data.get(0).getCity().getLon());
 		Assert.assertEquals("img.png", data.get(0).getMainPhoto());
 		Assert.assertTrue(2.3 == data.get(0).getCompatibilityScore());
 		Assert.assertTrue(2 == data.get(0).getContactsExchanged());
@@ -70,8 +70,8 @@ public class FilterServiceImplTest {
 		Assert.assertEquals("SE", data.get(0).getJobTitle());
 		Assert.assertTrue(12 == data.get(0).getAge());
 		Assert.assertTrue(155 == data.get(0).getHeightInCm());
-		Assert.assertTrue(2.3 == data.get(0).getCity().getLat());
-		Assert.assertTrue(33.1 == data.get(0).getCity().getLon());
+		Assert.assertTrue(51.509865 == data.get(0).getCity().getLat());
+		Assert.assertTrue(-1.548567 == data.get(0).getCity().getLon());
 		Assert.assertEquals("img.png", data.get(0).getMainPhoto());
 		Assert.assertTrue(2.3 == data.get(0).getCompatibilityScore());
 		Assert.assertTrue(2 == data.get(0).getContactsExchanged());
@@ -88,8 +88,8 @@ public class FilterServiceImplTest {
 		Assert.assertEquals("SE", entity.getJobTitle());
 		Assert.assertTrue(12 == entity.getAge());
 		Assert.assertTrue(155 == entity.getHeightInCm());
-		Assert.assertTrue(2.3 == entity.getCity().getLat());
-		Assert.assertTrue(33.1 == entity.getCity().getLon());
+		Assert.assertTrue(51.509865 == entity.getCity().getLat());
+		Assert.assertTrue(-1.548567 == entity.getCity().getLon());
 		Assert.assertEquals("img.png", entity.getMainPhoto());
 		Assert.assertTrue(2.3 == entity.getCompatibilityScore());
 		Assert.assertTrue(2 == entity.getContactsExchanged());

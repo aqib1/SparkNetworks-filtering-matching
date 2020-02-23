@@ -3,6 +3,8 @@ package com.sparknetworks.backend.utils;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * @author AQIB JAVED
  * @version 1.0
@@ -51,6 +53,16 @@ public class Utils {
 		return (c * r);
 	}
 
+	public static <T> String asJsonString(final T obj) {
+	    try {
+	        final ObjectMapper mapper = new ObjectMapper();
+	        final String jsonContent = mapper.writeValueAsString(obj);
+	        return jsonContent;
+	    } catch (Exception e) {
+	        throw new RuntimeException(e);
+	    }
+	}  
+	
 	private Utils() {
 
 	}

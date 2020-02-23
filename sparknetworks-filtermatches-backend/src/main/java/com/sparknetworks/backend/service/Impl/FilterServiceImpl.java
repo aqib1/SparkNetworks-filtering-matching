@@ -97,13 +97,11 @@ public class FilterServiceImpl implements FilterService {
 	}
 
 	private List<PersonDetailsEntity> getFilterDetails(FilterHandlerRequest request) {
-		List<PersonDetailsEntity> data = repository.findAll(PersonDetailsSpecs.getPersonDetailsByFilter(request))
-				.stream().filter(d -> {
-					double distanceKm = Utils.distance(request.getUser().getCity().getLat(), d.getCity().getLat(),
-							request.getUser().getCity().getLon(), d.getCity().getLon());
-					return request.getDistance().getFrom() <= distanceKm && distanceKm <= request.getDistance().getTo();
-				}).collect(Collectors.toList());
-		return data;
+		return repository.findAll(PersonDetailsSpecs.getPersonDetailsByFilter(request)).stream().filter(d -> {
+			double distanceKm = Utils.distance(request.getUser().getCity().getLat(), d.getCity().getLat(),
+					request.getUser().getCity().getLon(), d.getCity().getLon());
+			return request.getDistance().getFrom() <= distanceKm && distanceKm <= request.getDistance().getTo();
+		}).collect(Collectors.toList());
 	}
 
 	@Override

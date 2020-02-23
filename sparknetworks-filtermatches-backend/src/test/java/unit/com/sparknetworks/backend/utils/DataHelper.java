@@ -74,7 +74,7 @@ public class DataHelper {
 
 	public static PersonDetailsModel getPersonDetailsModel() {
 		return new PersonDetailsModel().displayName("caloria").password("ca123").age(22).jobTitle("SE").heightInCm(121l)
-				.city(new City().name("LHR").lat(3.1223).lon(12.111)).mainPhoto("img.png").compatibilityScore(2.1)
+				.city(new City().name("LHR").lat(51.509865).lon(-1.548567)).mainPhoto("img.png").compatibilityScore(2.1)
 				.contactsExchanged(2).favourite(true).religion("Islam");
 	}
 
@@ -104,8 +104,8 @@ public class DataHelper {
 		personDetails.setHeightInCm(155);
 		CityEntity ce = new CityEntity();
 		ce.setName("LHR");
-		ce.setLat(2.3);
-		ce.setLon(33.1);
+		ce.setLat(51.509865);
+		ce.setLon(-1.548567);
 		personDetails.setCity(ce);
 		personDetails.setMainPhoto("img.png");
 		personDetails.setCompatibilityScore(2.3);
@@ -118,7 +118,7 @@ public class DataHelper {
 	public static FilterHandlerRequest getFilterHandlerRequest() {
 		return new FilterHandlerRequest().hasPhoto(true).inContact(true).favorite(true)
 				.compatibility(new Compatibility().from(1.1).to(2.1)).age(new Age().from(22).to(32))
-				.height(new Height().from(123).to(156)).distance(new Distance().from(12.1).to(22.1))
+				.height(new Height().from(123).to(156)).distance(new Distance().from(0.0).to(750.0))
 				.user(getPersonDetailsModel());
 	}
 
