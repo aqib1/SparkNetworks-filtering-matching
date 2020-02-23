@@ -5,9 +5,14 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.context.request.WebRequest;
 
 import com.sparknetworks.backend.entities.CityEntity;
 import com.sparknetworks.backend.entities.PersonDetailsEntity;
+import com.sparknetworks.backend.exceptions.DataNotFoundException;
+import com.sparknetworks.backend.exceptions.InvalidLoginCredException;
+import com.sparknetworks.backend.exceptions.InvalidRequestException;
+import com.sparknetworks.backend.exceptions.ServiceNotAvailableException;
 import com.sparknetworks.model.Age;
 import com.sparknetworks.model.City;
 import com.sparknetworks.model.Compatibility;
@@ -17,8 +22,47 @@ import com.sparknetworks.model.FilterHandlerResponse;
 import com.sparknetworks.model.Height;
 import com.sparknetworks.model.LoginRequestModel;
 import com.sparknetworks.model.PersonDetailsModel;
+import com.sparknetworks.model.ResponseError;
 
+/**
+ * @author AQIB JAVED
+ *
+ */
 public class DataHelper {
+
+	public static final WebRequest TEST_WEB_REQUEST = null;
+	public static final RuntimeException TEST_RUNTIME_EXC = new RuntimeException();
+
+	public static ResponseEntity<ResponseError> getHandleServiceNotAvailableException() {
+		return new ResponseEntity<>(new ResponseError().createdAt("02/23/2020")
+				.detailedMessage(ServiceNotAvailableException.class.getName()).errorCode(HttpStatus.GONE.value())
+				.exceptionName(ServiceNotAvailableException.class.getName()).errorMessage("Error - Message"),
+				HttpStatus.GONE);
+	}
+
+	public static ResponseEntity<ResponseError> getHandleInvalidLoginCredException() {
+		return new ResponseEntity<>(
+				new ResponseError().createdAt("02/23/2020").detailedMessage(InvalidLoginCredException.class.getName())
+						.errorCode(HttpStatus.EXPECTATION_FAILED.value())
+						.exceptionName(InvalidLoginCredException.class.getName()).errorMessage("Error - Message"),
+				HttpStatus.EXPECTATION_FAILED);
+	}
+
+	public static ResponseEntity<ResponseError> getDataNotFoundException() {
+		return new ResponseEntity<>(
+				new ResponseError().createdAt("02/23/2020").detailedMessage(DataNotFoundException.class.getName())
+						.errorCode(HttpStatus.EXPECTATION_FAILED.value())
+						.exceptionName(DataNotFoundException.class.getName()).errorMessage("Error - Message"),
+				HttpStatus.EXPECTATION_FAILED);
+	}
+
+	public static ResponseEntity<ResponseError> getHandleInvalidRequestException() {
+		return new ResponseEntity<>(
+				new ResponseError().createdAt("02/23/2020").detailedMessage(InvalidRequestException.class.getName())
+						.errorCode(HttpStatus.BAD_REQUEST.value())
+						.exceptionName(InvalidRequestException.class.getName()).errorMessage("Error - Message"),
+				HttpStatus.BAD_REQUEST);
+	}
 
 	public static ResponseEntity<PersonDetailsModel> getLoginFilterResponseController() {
 		return new ResponseEntity<>(getPersonDetailsModel(), HttpStatus.OK);
@@ -36,6 +80,10 @@ public class DataHelper {
 
 	public static LoginRequestModel getLoginRequestModel() {
 		return new LoginRequestModel().name("caloria").password("ca123");
+	}
+
+	public static List<PersonDetailsModel> getListPersonDetailsModel() {
+		return Arrays.asList(getPersonDetailsModel());
 	}
 
 	public static FilterHandlerResponse getFilterHandlerResponse() {
