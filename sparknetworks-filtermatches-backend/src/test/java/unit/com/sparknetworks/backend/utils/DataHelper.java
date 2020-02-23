@@ -1,7 +1,10 @@
 package unit.com.sparknetworks.backend.utils;
 
 import java.util.Arrays;
+import java.util.List;
 
+import com.sparknetworks.backend.entities.CityEntity;
+import com.sparknetworks.backend.entities.PersonDetailsEntity;
 import com.sparknetworks.model.Age;
 import com.sparknetworks.model.City;
 import com.sparknetworks.model.Compatibility;
@@ -26,6 +29,31 @@ public class DataHelper {
 
 	public static FilterHandlerResponse getFilterHandlerResponse() {
 		return new FilterHandlerResponse().matches(Arrays.asList(getPersonDetailsModel()));
+	}
+	
+	public static List<PersonDetailsEntity> getPersonDetailsEntityList(){
+		return Arrays.asList(getPersonDetailsEntity());
+	}
+	
+	public static PersonDetailsEntity getPersonDetailsEntity() {
+		PersonDetailsEntity personDetails = new PersonDetailsEntity();
+		personDetails.setId(1);
+		personDetails.setDisplayName("tekxe");
+		personDetails.setPassword("12aqw1");
+		personDetails.setAge(12);
+		personDetails.setJobTitle("SE");
+		personDetails.setHeightInCm(155);
+		CityEntity ce = new CityEntity();
+		ce.setName("LHR");
+		ce.setLat(2.3);
+		ce.setLon(33.1);
+		personDetails.setCity(ce);
+		personDetails.setMainPhoto("img.png");
+		personDetails.setCompatibilityScore(2.3);
+		personDetails.setContactsExchanged(2);
+		personDetails.setFavourite(true);
+		personDetails.setReligion("T");
+		return personDetails;
 	}
 
 	public static FilterHandlerRequest getFilterHandlerRequest() {

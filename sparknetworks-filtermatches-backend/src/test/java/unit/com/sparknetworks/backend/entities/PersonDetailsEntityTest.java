@@ -12,6 +12,10 @@ import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import com.sparknetworks.backend.entities.PersonDetailsEntity;
 
+/**
+ * @author AQIB JAVED
+ *
+ */
 public class PersonDetailsEntityTest {
 
 	@Test

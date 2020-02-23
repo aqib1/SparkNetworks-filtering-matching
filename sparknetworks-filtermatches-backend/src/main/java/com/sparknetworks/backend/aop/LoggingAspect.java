@@ -25,7 +25,7 @@ public class LoggingAspect {
 	private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
 	@Pointcut("within(" + SPARK_COMPONENT_SCAN_PATH + ".*.*)")
-	protected void allMethod() {
+	public void allMethod() {
 	}
 
 	@Before("allMethod()")

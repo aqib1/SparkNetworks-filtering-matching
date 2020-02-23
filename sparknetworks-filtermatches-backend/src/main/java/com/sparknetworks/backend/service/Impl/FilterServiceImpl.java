@@ -79,10 +79,10 @@ public class FilterServiceImpl implements FilterService {
 
 	@Override
 	public List<PersonDetailsEntity> filterDetails(FilterHandlerRequest request) {
+		long stamp = stampedLock.tryOptimisticRead();
 		request.getCompatibility().setTo(request.getCompatibility().getTo() / 100);
 		request.getCompatibility().setFrom(request.getCompatibility().getFrom() / 100);
 		// return zero if it acquire by a write lock (exclusive locked)
-		long stamp = stampedLock.tryOptimisticRead();
 		// Synchronization overhead is very low if validate() succeeds
 		// Always return true if stamp is non zero (as not acquired by write lock)
 		if (stampedLock.validate(stamp))

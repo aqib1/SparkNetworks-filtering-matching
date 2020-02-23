@@ -12,6 +12,10 @@ import com.openpojo.validation.test.impl.GetterTester;
 import com.openpojo.validation.test.impl.SetterTester;
 import com.sparknetworks.backend.entities.CityEntity;
 
+/**
+ * @author AQIB JAVED
+ *
+ */
 public class CityEntityTest {
 	@Test
 	public void testGetterSetter() {
