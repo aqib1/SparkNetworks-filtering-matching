@@ -11,6 +11,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.sparknetworks.backend.business.FilterBusiness;
+import com.sparknetworks.backend.exceptions.DataNotFoundException;
+import com.sparknetworks.backend.exceptions.InvalidLoginCredException;
+import com.sparknetworks.backend.exceptions.InvalidRequestException;
 import com.sparknetworks.model.FilterHandlerRequest;
 import com.sparknetworks.model.FilterHandlerResponse;
 import com.sparknetworks.model.LoginRequestModel;
@@ -81,4 +84,38 @@ public class FilterBusinessTest {
 		Assert.assertTrue(data.get(0).getFavourite());
 		Assert.assertEquals("LHR", data.get(0).getCity().getName());
 	}
+
+	@Test(expected = InvalidLoginCredException.class)
+	public void testInvalidLoginCredException() {
+		mockInvalidLoginCredExceptionLogin();
+		filterBusiness.login(DataHelper.getLoginRequestModel());
+	}
+
+	private void mockInvalidLoginCredExceptionLogin() {
+		Mockito.when(filterBusiness.login(Mockito.any(LoginRequestModel.class)))
+				.thenThrow(InvalidLoginCredException.class);
+	}
+	
+	@Test(expected = InvalidRequestException.class)
+	public void testInvalidRequestException() {
+		mockInvalidRequestExceptionLogin();
+		filterBusiness.login(DataHelper.getLoginRequestModel());
+	}
+
+	private void mockInvalidRequestExceptionLogin() {
+		Mockito.when(filterBusiness.login(Mockito.any(LoginRequestModel.class)))
+		.thenThrow(InvalidRequestException.class);
+	}
+	
+	@Test(expected = DataNotFoundException.class)
+	public void testDataNotFoundException() {
+		mockDataNotFoundExceptionFilter();
+		filterBusiness.filter(DataHelper.getFilterHandlerRequest());
+	}
+
+	private void mockDataNotFoundExceptionFilter() {
+		Mockito.when(filterBusiness.filter(Mockito.any(FilterHandlerRequest.class)))
+		.thenThrow(DataNotFoundException.class);
+	}
+	
 }

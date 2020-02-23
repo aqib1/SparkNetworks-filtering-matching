@@ -20,11 +20,11 @@ import com.sparknetworks.model.PersonDetailsModel;
 
 public class DataHelper {
 
-	public static ResponseEntity<PersonDetailsModel> getLoginFilterController() {
+	public static ResponseEntity<PersonDetailsModel> getLoginFilterResponseController() {
 		return new ResponseEntity<>(getPersonDetailsModel(), HttpStatus.OK);
 	}
-	
-	public static ResponseEntity<FilterHandlerResponse> getAllFilterController(){
+
+	public static ResponseEntity<FilterHandlerResponse> getAllFilterResponseController() {
 		return new ResponseEntity<FilterHandlerResponse>(getFilterHandlerResponse(), HttpStatus.OK);
 	}
 
