@@ -61,8 +61,8 @@ GET| spark-networks-backend/filter | Backend geting all rest api
 
 
 ### Https Status
-200 OK: The request has succeeded
-400 Bad Request: The request could not be understood by the server
-404 Not Found: The requested resource cannot be found
-417 Bad Exception: Internal server exception
-500 Internal Server Error: The server encountered an unexpected condition
+- 200 OK: The request has succeeded
+- 400 Bad Request: The request could not be understood by the server
+- 404 Not Found: The requested resource cannot be found
+- 417 Bad Exception: Internal server exception
+- 500 Internal Server Error: The server encountered an unexpected condition
