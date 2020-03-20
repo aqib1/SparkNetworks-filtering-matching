@@ -123,3 +123,9 @@ INSERT INTO PersonDetails(id,display_name,password,age,job_title,height_in_cm,ci
     latitude,longitude,main_photo,compatibility_score,contacts_exchanged,
     favourite,religion) VALUES
     (25,'Susan','snam1@',25,'Project Manager',166,'Harlow',51.772938,0.10231,'http://thecatapi.com/api/images/get?format=src&type=gif',0.88,0,false,'Christian');
+
+INSERT INTO PersonDetails(id,display_name,password,age,job_title,height_in_cm,city_name,
+    latitude,longitude,main_photo,compatibility_score,contacts_exchanged,
+    favourite,religion) VALUES
+    (26,'Talor','ta_123',47,'Doctor',161,'Solihull',52.412811,-1.778197,'http://thecatapi.com/api/images/get?format=src&type=gif',0.97,0,false,'Christian');
+    

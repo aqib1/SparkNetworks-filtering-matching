@@ -1,5 +1,8 @@
 package com.sparknetworks.filterhandler.utils;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class Const {
 	
 	public static final String ERROR_ATTR_UNAUTH = "ERROR_ATTR_UNAUTH";
@@ -23,7 +26,15 @@ public class Const {
 	public static final String SPARK_COMPONENT_SCAN_PATH = "com.sparknetworks.filterhandler";
 	public static final String PERSON_DETAILS_LIST_KEY = "personDetails";
 	public static final String LOGIN_PAGE = "login";
+	public static final String INPUT_RELIGION_MAP = "RELIGION_MAP";
 
+	public static Map<String, String> inputReligionsMap(){
+		Map<String, String> religions = new LinkedHashMap<>();
+		religions.put("Judaisum","Judaisum");
+		religions.put("Christian","Christian");
+		religions.put("Islam", "Islam");
+		return religions;
+	}
 	private Const() {
 
 	}

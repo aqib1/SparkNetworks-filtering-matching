@@ -89,7 +89,7 @@ public class FilterBusiness {
 	/**
 	 * @param request
 	 */
-	private void validateFilterHandlerRequest(FilterHandlerRequest request) {
+	public void validateFilterHandlerRequest(FilterHandlerRequest request) {
 		if (Objects.isNull(request))
 			throw new InvalidRequestException("Request can not be null");
 		if (Objects.isNull(request.getHasPhoto()))
@@ -116,5 +116,9 @@ public class FilterBusiness {
 			throw new InvalidRequestException("Request distance (to | from) can not be null");
 		if (Objects.isNull(request.getUser()))
 			throw new InvalidRequestException("Request user (session) can not be null");
+		if(Objects.isNull(request.getReligions()))
+			throw new InvalidRequestException("Request user (religions-list) can not be null");
+		if(Objects.isNull(request.getStrictType()))
+			throw new InvalidRequestException("Request user (strict type) can not be null");
 	}
 }

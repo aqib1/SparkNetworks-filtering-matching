@@ -61,7 +61,7 @@ public class FilterController {
 		logger.info("Request recieved for filter with filterHandlerRequest [" + request + "]");
 		return new ResponseEntity<>(business.filter(request), HttpStatus.OK);
 	}
-
+	
 	/**
 	 * @return
 	 */

@@ -6,6 +6,9 @@ import static com.sparknetworks.backend.utils.Const.PERSON_DETAILS_COL_CONTACTS;
 import static com.sparknetworks.backend.utils.Const.PERSON_DETAILS_COL_FAVORITE;
 import static com.sparknetworks.backend.utils.Const.PERSON_DETAILS_COL_HEIGHT;
 import static com.sparknetworks.backend.utils.Const.PERSON_DETAILS_COL_MAINPHOTO;
+import static com.sparknetworks.backend.utils.Const.PERSON_DETAILS_COL_RELIGION;
+
+import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
 
@@ -68,7 +71,15 @@ public class PersonDetailsSpecs {
 		return (root, query, criteriaBuilder) -> criteriaBuilder.between(root.get(PERSON_DETAILS_COL_COMPATIBILITY),
 				compatibility.getFrom(), compatibility.getTo());
 	}
-
+	
+	/**
+	 * @param religions
+	 * @return
+	 */
+	public static Specification<PersonDetailsEntity> getPersonDetailsByListOfReligion(List<String> religions) {
+		return (root, query, cb) ->  cb.isTrue(root.get(PERSON_DETAILS_COL_RELIGION).in(religions));
+	}
+	
 	/**
 	 * @param height
 	 * @return
@@ -88,7 +99,8 @@ public class PersonDetailsSpecs {
 				.and(getPersonDetailsByFavorite(request.getFavorite()))
 				.and(getPersonDetailsByCompatibility(request.getCompatibility()))
 				.and(getPersonDetailsByAge(request.getAge()))
-				.and(getPersonDetailsByHeight(request.getHeight()));
+				.and(getPersonDetailsByHeight(request.getHeight()))
+				.and(getPersonDetailsByListOfReligion(request.getReligions()));
 	}
 	
 	private PersonDetailsSpecs() {

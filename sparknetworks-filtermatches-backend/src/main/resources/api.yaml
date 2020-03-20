@@ -104,6 +104,8 @@ components:
             $ref: '#/components/schemas/PersonDetailsModel'
     FilterHandlerRequest:
       properties:
+        strictType:
+          type: boolean
         hasPhoto:
           type: boolean
         inContact:
@@ -124,7 +126,11 @@ components:
           $ref: '#/components/schemas/Distance'
         user:
           type: object  
-          $ref: '#/components/schemas/PersonDetailsModel'  
+          $ref: '#/components/schemas/PersonDetailsModel'
+        religions:
+          type: array
+          items:
+            type: string  
     Distance:
       properties:
         from:

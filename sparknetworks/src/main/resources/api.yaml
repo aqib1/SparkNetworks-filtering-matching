@@ -7,26 +7,48 @@ tags:
 - name: Filter Handler - client
   description: Pojo definition for client filter handler
 paths:
-  /:
-    get:
+  /login:
+    post:
       tags:
-      - Login API
-      summary: >-
-        Api for login screen
+        - Login API
+      summary: >- 
+        create a new api for login
       operationId: login
+      requestBody:
+        description: request body required for login
+        required: true  
+        content:
+          application/json:
+           schema:
+             $ref: '#/components/schemas/LoginRequestModel'
       responses:
         '200':
-          description: successfull operation       
-  /home:
-    get:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonDetailsModel'           
+  /filter:
+    post:
       tags:
-      - Home API
+        - Filter API
       summary: >-
-        home api for person details screens
-      operationId: home
+        create a new api filter handler which filter data upon given request
+      operationId: filter
+      requestBody:
+        description: request body required for filter
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterHandlerRequest'
       responses:
         '200':
-          description: successfull operation
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterHandlerResponse'
 components:
   schemas:
     LoginRequestModel:
@@ -34,13 +56,14 @@ components:
         name:
           type: string
         password:
-          type: string    
+          type: string  
+    
     PersonDetailsModel:
       properties:
         display_name:
           type: string
         password:
-          type: string   
+          type: string  
         age:
           type: integer
         job_title:
@@ -81,6 +104,8 @@ components:
             $ref: '#/components/schemas/PersonDetailsModel'
     FilterHandlerRequest:
       properties:
+        strictType:
+          type: boolean
         hasPhoto:
           type: boolean
         inContact:
@@ -102,6 +127,10 @@ components:
         user:
           type: object  
           $ref: '#/components/schemas/PersonDetailsModel'
+        religions:
+          type: array
+          items:
+            type: string  
     Distance:
       properties:
         from:

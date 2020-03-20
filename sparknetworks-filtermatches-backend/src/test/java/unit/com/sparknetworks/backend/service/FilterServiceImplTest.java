@@ -42,7 +42,31 @@ public class FilterServiceImplTest {
 		Mockito.when(filterServiceImpl.filterDetails(Mockito.any(FilterHandlerRequest.class)))
 				.thenReturn(DataHelper.getPersonDetailsEntityList());
 	}
-
+	
+	private void mockFilterByStrictType() {
+		Mockito.when(filterServiceImpl.filterDetails(Mockito.any(FilterHandlerRequest.class)))
+		.thenReturn(DataHelper.getPersonDetailsEntityList());
+	}
+	
+	@Test
+	public void testFilterByStrictType() {
+		mockFilterByStrictType();
+		List<PersonDetailsEntity> data = filterServiceImpl.filterDetails(DataHelper.getFilterHandlerRequestForStrictType());
+		Assert.assertTrue(1 == data.get(0).getId());
+		Assert.assertEquals("tekxe", data.get(0).getDisplayName());
+		Assert.assertEquals("12aqw1", data.get(0).getPassword());
+		Assert.assertEquals("SE", data.get(0).getJobTitle());
+		Assert.assertTrue(12 == data.get(0).getAge());
+		Assert.assertTrue(155 == data.get(0).getHeightInCm());
+		Assert.assertTrue(51.509865 == data.get(0).getCity().getLat());
+		Assert.assertTrue(-1.548567 == data.get(0).getCity().getLon());
+		Assert.assertEquals("img.png", data.get(0).getMainPhoto());
+		Assert.assertTrue(2.3 == data.get(0).getCompatibilityScore());
+		Assert.assertTrue(2 == data.get(0).getContactsExchanged());
+		Assert.assertTrue(data.get(0).getFavourite());
+		Assert.assertEquals("T", data.get(0).getReligion());
+	}
+	
 	@Test
 	public void testFilterDetails() {
 		List<PersonDetailsEntity> data = filterServiceImpl.filterDetails(DataHelper.getFilterHandlerRequest());

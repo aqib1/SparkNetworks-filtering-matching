@@ -18,6 +18,7 @@ public class Const {
 	public static final String PERSON_DETAILS_COL_FAVORITE = "favourite";
 	public static final String PERSON_DETAILS_COL_COMPATIBILITY = "compatibilityScore";
 	public static final String PERSON_DETAILS_COL_HEIGHT = "heightInCm";
+	public static final String PERSON_DETAILS_COL_RELIGION = "religion";
 	
 	
 	private Const() {

@@ -1,5 +1,7 @@
 package com.sparknetworks.backend.service.Impl;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.locks.StampedLock;
 import java.util.stream.Collectors;
@@ -97,11 +99,20 @@ public class FilterServiceImpl implements FilterService {
 	}
 
 	private List<PersonDetailsEntity> getFilterDetails(FilterHandlerRequest request) {
-		return repository.findAll(PersonDetailsSpecs.getPersonDetailsByFilter(request)).stream().filter(d -> {
-			double distanceKm = Utils.distance(request.getUser().getCity().getLat(), d.getCity().getLat(),
-					request.getUser().getCity().getLon(), d.getCity().getLon());
-			return request.getDistance().getFrom() <= distanceKm && distanceKm <= request.getDistance().getTo();
-		}).collect(Collectors.toList());
+		List<PersonDetailsEntity> listOfDetailsEntities = repository
+				.findAll(PersonDetailsSpecs.getPersonDetailsByFilter(request)).stream().filter(d -> {
+					double distanceKm = Utils.distance(request.getUser().getCity().getLat(), d.getCity().getLat(),
+							request.getUser().getCity().getLon(), d.getCity().getLon());
+					return request.getDistance().getFrom() <= distanceKm && distanceKm <= request.getDistance().getTo();
+				}).collect(Collectors.toList());
+		return !request.getStrictType() ? listOfDetailsEntities
+				: getListOfDetailsEntitiesStrictType(listOfDetailsEntities, request.getReligions());
+	}
+
+	private List<PersonDetailsEntity> getListOfDetailsEntitiesStrictType(
+			List<PersonDetailsEntity> listOfDetailsEntities, List<String> religions) {
+		Collections.sort(listOfDetailsEntities, Comparator.comparing(item -> religions.indexOf(item.getReligion())));
+		return listOfDetailsEntities;
 	}
 
 	@Override

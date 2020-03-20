@@ -47,6 +47,7 @@ public class PersonDetailsEntity {
 
 	@Column(name = "religion")
 	private String religion;
+	
 
 	public String getPassword() {
 		return password;

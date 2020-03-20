@@ -39,7 +39,9 @@ public class DataHelper {
 				.exceptionName(ServiceNotAvailableException.class.getName()).errorMessage("Error - Message"),
 				HttpStatus.GONE);
 	}
-
+	
+	
+	
 	public static ResponseEntity<ResponseError> getHandleInvalidLoginCredException() {
 		return new ResponseEntity<>(
 				new ResponseError().createdAt("02/23/2020").detailedMessage(InvalidLoginCredException.class.getName())
@@ -64,6 +66,7 @@ public class DataHelper {
 				HttpStatus.BAD_REQUEST);
 	}
 
+	
 	public static ResponseEntity<PersonDetailsModel> getLoginFilterResponseController() {
 		return new ResponseEntity<>(getPersonDetailsModel(), HttpStatus.OK);
 	}
@@ -77,7 +80,25 @@ public class DataHelper {
 				.city(new City().name("LHR").lat(51.509865).lon(-1.548567)).mainPhoto("img.png").compatibilityScore(2.1)
 				.contactsExchanged(2).favourite(true).religion("Islam");
 	}
-
+	
+	public static PersonDetailsModel getPersonDetailsModel1() {
+		return new PersonDetailsModel().displayName("aqib").password("aj123").age(27).jobTitle("SE").heightInCm(121l)
+				.city(new City().name("LHR").lat(51.509865).lon(-1.548567)).mainPhoto("img.png").compatibilityScore(2.1)
+				.contactsExchanged(2).favourite(true).religion("Islam");
+	}
+	
+	public static PersonDetailsModel getPersonDetailsModel2() {
+		return new PersonDetailsModel().displayName("Tim").password("ti123").age(28).jobTitle("SE").heightInCm(121l)
+				.city(new City().name("LHR").lat(51.509865).lon(-1.548567)).mainPhoto("img.png").compatibilityScore(2.1)
+				.contactsExchanged(2).favourite(true).religion("Judaism");
+	}
+	
+	public static PersonDetailsModel getPersonDetailsModel3() {
+		return new PersonDetailsModel().displayName("Luke").password("lu123").age(28).jobTitle("SE").heightInCm(121l)
+				.city(new City().name("LHR").lat(51.509865).lon(-1.548567)).mainPhoto("img.png").compatibilityScore(2.1)
+				.contactsExchanged(2).favourite(true).religion("Hinduism");
+	}
+	
 	public static LoginRequestModel getLoginRequestModel() {
 		return new LoginRequestModel().name("caloria").password("ca123");
 	}
@@ -89,7 +110,15 @@ public class DataHelper {
 	public static FilterHandlerResponse getFilterHandlerResponse() {
 		return new FilterHandlerResponse().matches(Arrays.asList(getPersonDetailsModel()));
 	}
-
+	
+	public static FilterHandlerResponse getFilterHandlerResponseForListOfReligions() {
+		return new FilterHandlerResponse().matches(Arrays.asList(getPersonDetailsModel(), getPersonDetailsModel1()));
+	}
+	
+	public static FilterHandlerResponse getFilterHandlerResponseForStrictType() {
+		return new FilterHandlerResponse().matches(Arrays.asList(getPersonDetailsModel3(), getPersonDetailsModel2()));
+	}
+	
 	public static List<PersonDetailsEntity> getPersonDetailsEntityList() {
 		return Arrays.asList(getPersonDetailsEntity());
 	}
@@ -119,7 +148,18 @@ public class DataHelper {
 		return new FilterHandlerRequest().hasPhoto(true).inContact(true).favorite(true)
 				.compatibility(new Compatibility().from(1.1).to(2.1)).age(new Age().from(22).to(32))
 				.height(new Height().from(123).to(156)).distance(new Distance().from(0.0).to(750.0))
-				.user(getPersonDetailsModel());
+				.user(getPersonDetailsModel())
+				.religions(Arrays.asList("Christ","Isl"))
+				.strictType(false);
+	}
+	
+	public static FilterHandlerRequest getFilterHandlerRequestForStrictType() {
+		return new FilterHandlerRequest().hasPhoto(true).inContact(true).favorite(true)
+				.compatibility(new Compatibility().from(1.1).to(2.1)).age(new Age().from(22).to(32))
+				.height(new Height().from(123).to(156)).distance(new Distance().from(0.0).to(750.0))
+				.user(getPersonDetailsModel())
+				.religions(Arrays.asList("Christ","Isl"))
+				.strictType(true);
 	}
 
 	private DataHelper() {

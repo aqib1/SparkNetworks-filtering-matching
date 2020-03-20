@@ -44,6 +44,76 @@ public class FilterBusinessTest {
 				.thenReturn(DataHelper.getFilterHandlerResponse());
 	}
 
+	private void mockStrictTypeFilterInvalidrequestException() {
+		Mockito.doThrow(InvalidRequestException.class).when(filterBusiness)
+				.validateFilterHandlerRequest(Mockito.any(FilterHandlerRequest.class));
+	}
+
+	@Test(expected = InvalidRequestException.class)
+	public void filterByStrictTypeInvalidRequestException() {
+		mockStrictTypeFilterInvalidrequestException();
+		filterBusiness.validateFilterHandlerRequest(DataHelper.getFilterHandlerRequest());
+	}
+	
+	private void mockFilterTypeStrictType() {
+		Mockito.when(filterBusiness.filter(Mockito.any(FilterHandlerRequest.class)))
+		.thenReturn(DataHelper.getFilterHandlerResponseForStrictType());
+	}
+	
+	@Test
+	public void testFilterTypeStrictType() {
+		mockFilterTypeStrictType();
+		FilterHandlerResponse response = filterBusiness.filter(DataHelper.getFilterHandlerRequest());
+		List<PersonDetailsModel> data = response.getMatches();
+		Assert.assertTrue(data.size() == 2);
+		Assert.assertEquals("Luke", data.get(0).getDisplayName());
+		Assert.assertEquals("lu123", data.get(0).getPassword());
+		Assert.assertTrue(28 == data.get(0).getAge());
+		Assert.assertEquals("SE", data.get(0).getJobTitle());
+		Assert.assertTrue(121l == data.get(0).getHeightInCm());
+		Assert.assertTrue(2 == data.get(0).getContactsExchanged());
+		Assert.assertTrue(data.get(0).getFavourite());
+		Assert.assertEquals("LHR", data.get(0).getCity().getName());
+		Assert.assertEquals("Tim", data.get(1).getDisplayName());
+		Assert.assertEquals("ti123", data.get(1).getPassword());
+		Assert.assertTrue(28 == data.get(1).getAge());
+	}
+
+	private void mockFilterByReligionsListInvalidRequestException() {
+		Mockito.doThrow(InvalidRequestException.class).when(filterBusiness)
+				.validateFilterHandlerRequest(Mockito.any(FilterHandlerRequest.class));
+	}
+
+	@Test(expected = InvalidRequestException.class)
+	public void filterByReligionsList() {
+		mockFilterByReligionsListInvalidRequestException();
+		filterBusiness.validateFilterHandlerRequest(DataHelper.getFilterHandlerRequest());
+	}
+
+	private void mockFilterByReligionList() {
+		Mockito.when(filterBusiness.filter(Mockito.any(FilterHandlerRequest.class)))
+				.thenReturn(DataHelper.getFilterHandlerResponseForListOfReligions());
+	}
+
+	@Test
+	public void filterByReligionList() {
+		mockFilterByReligionList();
+		FilterHandlerResponse response = filterBusiness.filter(DataHelper.getFilterHandlerRequest());
+		List<PersonDetailsModel> data = response.getMatches();
+		Assert.assertTrue(data.size() == 2);
+		Assert.assertEquals("caloria", data.get(0).getDisplayName());
+		Assert.assertEquals("ca123", data.get(0).getPassword());
+		Assert.assertTrue(22 == data.get(0).getAge());
+		Assert.assertEquals("SE", data.get(0).getJobTitle());
+		Assert.assertTrue(121l == data.get(0).getHeightInCm());
+		Assert.assertTrue(2 == data.get(0).getContactsExchanged());
+		Assert.assertTrue(data.get(0).getFavourite());
+		Assert.assertEquals("LHR", data.get(0).getCity().getName());
+		Assert.assertEquals("aqib", data.get(1).getDisplayName());
+		Assert.assertEquals("aj123", data.get(1).getPassword());
+		Assert.assertTrue(27 == data.get(1).getAge());
+	}
+
 	@Test
 	public void loginTest() {
 		PersonDetailsModel model = filterBusiness.login(DataHelper.getLoginRequestModel());
@@ -95,7 +165,7 @@ public class FilterBusinessTest {
 		Mockito.when(filterBusiness.login(Mockito.any(LoginRequestModel.class)))
 				.thenThrow(InvalidLoginCredException.class);
 	}
-	
+
 	@Test(expected = InvalidRequestException.class)
 	public void testInvalidRequestException() {
 		mockInvalidRequestExceptionLogin();
@@ -104,9 +174,9 @@ public class FilterBusinessTest {
 
 	private void mockInvalidRequestExceptionLogin() {
 		Mockito.when(filterBusiness.login(Mockito.any(LoginRequestModel.class)))
-		.thenThrow(InvalidRequestException.class);
+				.thenThrow(InvalidRequestException.class);
 	}
-	
+
 	@Test(expected = DataNotFoundException.class)
 	public void testDataNotFoundException() {
 		mockDataNotFoundExceptionFilter();
@@ -115,7 +185,7 @@ public class FilterBusinessTest {
 
 	private void mockDataNotFoundExceptionFilter() {
 		Mockito.when(filterBusiness.filter(Mockito.any(FilterHandlerRequest.class)))
-		.thenThrow(DataNotFoundException.class);
+				.thenThrow(DataNotFoundException.class);
 	}
-	
+
 }

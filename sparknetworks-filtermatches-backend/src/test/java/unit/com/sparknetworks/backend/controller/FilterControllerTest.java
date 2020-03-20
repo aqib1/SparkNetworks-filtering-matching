@@ -43,6 +43,7 @@ public class FilterControllerTest {
 		Mockito.when(filterController.filter(Mockito.any(FilterHandlerRequest.class)))
 				.thenReturn(DataHelper.getAllFilterResponseController());
 	}
+	
 
 	@Test
 	public void testFilter() {
