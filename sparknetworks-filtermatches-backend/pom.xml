@@ -23,7 +23,7 @@
 		<feign.version>1.4.7.RELEASE</feign.version>
 		<openpojo-version>0.8.10</openpojo-version>
 		<mapstruct.version>1.3.0.Beta2</mapstruct.version>
-		<openapi.tool.version>3.3.4</openapi.tool.version>
+		<openapi.tool.version>5.1.0</openapi.tool.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
