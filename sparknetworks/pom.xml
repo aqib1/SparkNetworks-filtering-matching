@@ -16,7 +16,7 @@
 		<webjars.datapicker.version>1.0.1</webjars.datapicker.version>
 		<webjar.jquery>1.9.1</webjar.jquery>
 		<swagger-annotations-version>1.5.22</swagger-annotations-version>
-		<openapi.tool.version>3.3.4</openapi.tool.version>
+		<openapi.tool.version>5.1.0</openapi.tool.version>
 		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 		<json.version>20190722</json.version>
 	</properties>
